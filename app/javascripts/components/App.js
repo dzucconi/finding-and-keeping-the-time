@@ -1,5 +1,8 @@
+import Store from '../lib/Store';
 import NewTask from './NewTask';
 import Tasks from './Tasks';
+
+window.Store = Store;
 
 const { h, Component } = window.preact;
 
@@ -8,7 +11,7 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      tasks: [],
+      tasks: Store.get(),
     };
   }
 
@@ -16,12 +19,16 @@ export default class App extends Component {
     this.setState({
       tasks: [...this.state.tasks, task],
     });
+
+    Store.set(this.state.tasks);
   }
 
   removeTask(id) {
     this.setState({
       tasks: this.state.tasks.filter(task => task.id !== id),
     });
+
+    Store.set(this.state.tasks);
   }
 
   render(_props, state) {
