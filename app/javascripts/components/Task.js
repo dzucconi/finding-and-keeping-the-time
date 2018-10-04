@@ -9,29 +9,29 @@ export default class Task extends Component {
   constructor(props) {
     super(props);
 
+    const mode = props.task.pause ? 'paused' : 'playing';
+
     this.state = {
-      mode: 'playing',
+      mode,
       hours: null,
       minutes: null,
       seconds: null,
       milliseconds: null,
     };
 
-    this.tick();
+    this.set();
   }
 
   componentDidMount() {
     fps(requestAnimationFrame)(60, this.tick.bind(this))();
   }
 
-  tick() {
-    const { mode } = this.state;
+  set() {
     const { task } = this.props;
-
-    if (mode === 'paused') return;
+    const target = task.apparent || task.start;
 
     const diff = DateTime.local()
-      .diff(task.start, [
+      .diff(target, [
         'hours',
         'minutes',
         'seconds',
@@ -44,6 +44,11 @@ export default class Task extends Component {
       seconds: `${Math.floor(diff.seconds)}`.padStart(2, '0'),
       milliseconds: `${diff.milliseconds}`.padStart(3, '0'),
     });
+  }
+
+  tick() {
+    if (this.state.mode === 'paused') return;
+    this.set();
   }
 
   toggle(e) {

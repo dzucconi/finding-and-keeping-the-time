@@ -46,7 +46,8 @@ export default class App extends Component {
     const index = this.state.tasks.indexOf(task);
 
     tasks.splice(index, 0, {
-      ...task, pause: DateTime.local(),
+      ...task,
+      pause: DateTime.local(),
     });
 
     this.setState({ tasks });
@@ -62,6 +63,8 @@ export default class App extends Component {
     tasks.splice(index, 0, {
       ...task,
       start: task.start.plus(DateTime.local().diff(task.pause)),
+      pause: null,
+      apparent: null,
     });
 
     this.setState({ tasks });
