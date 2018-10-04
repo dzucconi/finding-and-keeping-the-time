@@ -11,7 +11,10 @@ export default {
   get() {
     const parsed = JSON.parse(window.localStorage.getItem(KEY) || '[]');
 
-    return parsed.map(task =>
-      Object.assign(task, { start: DateTime.fromISO(task.start) }));
+    return parsed.map(task => ({
+      ...task,
+      start: task.start && DateTime.fromISO(task.start),
+      pause: task.pause && DateTime.fromISO(task.pause),
+    }));
   },
 };

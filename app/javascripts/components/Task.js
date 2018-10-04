@@ -10,6 +10,7 @@ export default class Task extends Component {
     super(props);
 
     this.state = {
+      mode: 'playing',
       hours: null,
       minutes: null,
       seconds: null,
@@ -24,7 +25,10 @@ export default class Task extends Component {
   }
 
   tick() {
+    const { mode } = this.state;
     const { task } = this.props;
+
+    if (mode === 'paused') return;
 
     const diff = DateTime.local()
       .diff(task.start, [
@@ -42,10 +46,38 @@ export default class Task extends Component {
     });
   }
 
-  render({ task, onRemoveTask }, { hours, minutes, seconds, milliseconds }) {
+  toggle(e) {
+    e.preventDefault();
+
+    const { mode } = this.state;
+    const { task: { id }, onPauseTask, onPlayTask } = this.props;
+
+    this.setState({
+      mode: {
+        paused: 'playing',
+        playing: 'paused',
+      }[mode],
+    });
+
+    return {
+      playing: onPauseTask,
+      paused: onPlayTask,
+    }[mode](id);
+  }
+
+  render(props, state) {
+    const { task, onRemoveTask } = props;
+    const { mode, hours, minutes, seconds, milliseconds } = state;
+
     return (
       h('div', null,
         h(RemoveTask, { id: task.id, onClick: onRemoveTask }),
+
+        h('a', { onClick: this.toggle.bind(this) }, {
+          playing: 'pause',
+          paused: 'play',
+        }[mode]),
+
         h('span', null, `
           ${task.name} — ${hours}:${minutes}:${seconds}:${milliseconds}
         `)
