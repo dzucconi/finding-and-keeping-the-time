@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Arial Monospaced';
-  src: url('/fonts/ArialMonospaced.woff2') format('woff2'), url('/fonts/ArialMonospaced.woff') format('woff');
+  src: url('fonts/ArialMonospaced.woff2') format('woff2'), url('fonts/ArialMonospaced.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -92,13 +92,13 @@ input {
   background-repeat: no-repeat;
 }
   .Icon--remove {
-    background-image: url('/svg/remove.svg');
+    background-image: url('svg/remove.svg');
   }
   .Icon--play {
     background-size: 45%;
-    background-image: url('/svg/play.svg');
+    background-image: url('svg/play.svg');
   }
   .Icon--pause {
     background-size: 45%;
-    background-image: url('/svg/pause.svg');
+    background-image: url('svg/pause.svg');
   }
