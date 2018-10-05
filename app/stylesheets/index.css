@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Arial Monospaced';
+  src: url('/fonts/ArialMonospaced.woff2') format('woff2'), url('/fonts/ArialMonospaced.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @keyframes pulse {
   0% { color: black; }
   50% { color: blue; }
@@ -27,10 +34,14 @@ body {
 body {
   background-color: white;
   color: #222;
-  -webkit-font-smoothing: antialiased;
-  font-family: sans-serif;
   line-height: 1.33;
   margin: 0.5em;
+}
+
+body,
+input {
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Arial Monospaced', sans-serif;
 }
 
 input {
@@ -39,9 +50,10 @@ input {
   font-size: 1rem;
   padding: 0.5em;
   border: none;
-  -webkit-font-smoothing: antialiased;
-  font-family: sans-serif;
 }
+  input:focus {
+    outline: none;
+  }
 
 .Task {
   display: flex;
