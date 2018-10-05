@@ -80,7 +80,7 @@ input {
   background-repeat: no-repeat;
 }
   .Icon--remove {
-    background-image: url('/svg/close.svg');
+    background-image: url('/svg/remove.svg');
   }
   .Icon--play {
     background-size: 45%;
