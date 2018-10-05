@@ -1,4 +1,4 @@
-import uuid from 'uuid/v4';
+import uuid from 'uuid-v4';
 import { DateTime } from 'luxon';
 
 const { h, Component } = window.preact;
