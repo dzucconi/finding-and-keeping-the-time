@@ -1,8 +1,6 @@
 import fps from 'frame-interval';
 import { DateTime } from 'luxon';
 
-import RemoveTask from './RemoveTask';
-
 const { h, Component } = window.preact;
 
 export default class Task extends Component {
@@ -70,22 +68,28 @@ export default class Task extends Component {
     }[mode](id);
   }
 
+  remove(e) {
+    e.preventDefault();
+
+    const { task: { id }, onRemoveTask } = this.props;
+
+    return onRemoveTask(id);
+  }
+
   render(props, state) {
-    const { task, onRemoveTask } = props;
+    const { task } = props;
     const { mode, hours, minutes, seconds, milliseconds } = state;
 
     return (
-      h('div', null,
-        h(RemoveTask, { id: task.id, onClick: onRemoveTask }),
-
-        h('a', { onClick: this.toggle.bind(this) }, {
-          playing: 'pause',
-          paused: 'play',
-        }[mode]),
-
-        h('span', null, `
-          ${task.name} — ${hours}:${minutes}:${seconds}:${milliseconds}
-        `)
+      h('div', { className: 'Task' },
+        h('div', { className: 'Task__actions' },
+          h('a', { className: 'Icon Icon--remove', onClick: this.remove.bind(this) }, ''),
+          h('a', { className: `Icon Icon--${{ playing: 'pause', paused: 'play' }[mode]}`, onClick: this.toggle.bind(this) }, ''),
+        ),
+        h('div', { className: 'Task__display' },
+          h('div', { className: `Task__label Task__label--${mode}`}, `${task.name}`),
+          h('div', { className: 'Task__timer' }, `${hours}:${minutes}:${seconds}:${milliseconds}`),
+        )
       )
     );
   }

@@ -1,3 +1,9 @@
+@keyframes pulse {
+  0% { color: black; }
+  50% { color: blue; }
+  100% { color: black; }
+}
+
 html {
   box-sizing: border-box;
 }
@@ -24,22 +30,63 @@ body {
   -webkit-font-smoothing: antialiased;
   font-family: sans-serif;
   line-height: 1.33;
-  margin: 0.25em 0.5em;
+  margin: 0.5em;
 }
 
 input {
+  display: block;
+  width: 100%;
   font-size: 1rem;
-  padding: 0;
+  padding: 0.5em;
   border: none;
   -webkit-font-smoothing: antialiased;
   font-family: sans-serif;
 }
 
-@keyframes pulse {
-  from { opacity: 1.0; }
-  to { opacity: 0.0; }
-}
-
 .Task {
-  /* animation: pulse 1s infinite cubic-bezier(1.0, 0, 0, 1.0); */
+  display: flex;
+  margin-bottom: -2px;
 }
+  .Task__actions {
+    display: flex;
+  }
+    .Task__actions > a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      cursor: pointer;
+      border: 2px solid;
+      width: 2em;
+      margin-right: -2px;
+    }
+      .Task__actions > a:hover {}
+  .Task__display {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid;
+    padding: 0.5em 1em;
+  }
+    .Task__label {}
+    .Task__label--playing {
+      animation: pulse 1s infinite;
+    }
+
+.Icon {
+  background-size: 50%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+  .Icon--remove {
+    background-image: url('/svg/close.svg');
+  }
+  .Icon--play {
+    background-size: 45%;
+    background-image: url('/svg/play.svg');
+  }
+  .Icon--pause {
+    background-size: 45%;
+    background-image: url('/svg/pause.svg');
+  }
