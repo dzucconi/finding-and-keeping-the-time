@@ -22,6 +22,8 @@ export default class NewTask extends Component {
       name,
       start: DateTime.local(),
     });
+
+    this.setState({ name: '' });
   }
 
   handleInput({ target: { value: name }}) {
@@ -38,6 +40,7 @@ export default class NewTask extends Component {
           required: true,
           autocomplete: 'off',
           onInput: this.handleInput.bind(this),
+          value: this.state.name,
         })
       )
     );
